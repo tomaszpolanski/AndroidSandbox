@@ -1,14 +1,41 @@
 package com.tomaszpolanski.androidsandbox;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import polanski.option.Option;
+import rx.subscriptions.CompositeSubscription;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
+    @Override
+    protected void onBind(@NonNull CompositeSubscription subscription) {
+
+    }
+
+    @NonNull
+    @Override
+    protected IViewModel getViewModel() {
+        return new IViewModel() {
+            @Override
+            public void dispose() {
+
+            }
+
+            @Override
+            public void subscribeToDataStore() {
+
+            }
+
+            @Override
+            public void unsubscribeFromDataStore() {
+
+            }
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
