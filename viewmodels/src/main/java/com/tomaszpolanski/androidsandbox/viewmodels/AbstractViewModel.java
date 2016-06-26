@@ -1,14 +1,11 @@
 package com.tomaszpolanski.androidsandbox.viewmodels;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
+import polanski.option.Option;
 import rx.subscriptions.CompositeSubscription;
-
 
 public abstract class AbstractViewModel implements IViewModel {
 
-    private CompositeSubscription mSubscriptions;
+    private AtomicOption<CompositeSubscription> mSubscriptions = new AtomicOption<>();
 
     @Override
     public void dispose() {
@@ -18,23 +15,20 @@ public abstract class AbstractViewModel implements IViewModel {
     @Override
     public final void subscribeToDataStore() {
         unsubscribeFromDataStore();
-        mSubscriptions = new CompositeSubscription();
-        subscribeToData(mSubscriptions);
+        mSubscriptions.set(Option.ofObj(new CompositeSubscription()));
+        mSubscriptions.get().ifSome(this::subscribeToData);
     }
 
     @Override
     public void unsubscribeFromDataStore() {
-        if (mSubscriptions != null) {
-            mSubscriptions.clear();
-            mSubscriptions = null;
-        }
+        mSubscriptions.getAndSet(Option.none())
+                .ifSome(CompositeSubscription::clear);
     }
 
-    protected abstract void subscribeToData(@NonNull CompositeSubscription subscription);
+    protected abstract void subscribeToData(CompositeSubscription subscription);
 
-    @Nullable
-    private CompositeSubscription getSubscriptions() {
-        return mSubscriptions;
+    private Option<CompositeSubscription> getSubscriptions() {
+        return mSubscriptions.get();
     }
 
 }
