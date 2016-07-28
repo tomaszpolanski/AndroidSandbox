@@ -1,1 +1,1 @@
-include ':app'
+rootProject.buildFileName = 'src/build.gradle.kts'
