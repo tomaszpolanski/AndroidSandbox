@@ -9,3 +9,7 @@ Repository that I use to try out new things and ideas related to Android.
 - [**modular_app**](https://github.com/tomaszpolanski/AndroidSandbox/tree/modular_app)  - dividing Android application into modules to improve compilation time and for separation of concerns 
 - [**gradle3_kotlin**](https://github.com/tomaszpolanski/AndroidSandbox/tree/gradle3_kotlin)  - using Gradle 3.0 and kotlin script instead of groovy + trying out new kotlin 1.1 features
 
+## Kotlin
+
+In this branch I try out new Gradle 3.0 with kotlin script instead of groovy.
+Additionally I check out prerelease version of kotlin 1.1 with it's new features.
