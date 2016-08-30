@@ -1,5 +1,7 @@
 package com.tomaszpolanski.androidsandbox;
 
+import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -45,11 +47,12 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         Option<FloatingActionButton> fab = Option.ofObj(findViewById(R.id.fab))
-                .ofType(FloatingActionButton.class);
+                                                 .ofType(FloatingActionButton.class);
 
         fab.ifSome(button ->
-                button.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()));
+                           button.setOnClickListener(view -> Snackbar
+                                   .make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                                   .setAction("Action", null).show()));
     }
 
 }

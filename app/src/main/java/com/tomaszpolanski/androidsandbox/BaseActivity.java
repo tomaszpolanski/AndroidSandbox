@@ -1,12 +1,12 @@
 package com.tomaszpolanski.androidsandbox;
 
+import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-
 import rx.subscriptions.CompositeSubscription;
-
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -28,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @NonNull
     protected abstract IViewModel getViewModel();
-
 
     @Override
     protected void onCreate(Bundle bundle) {

@@ -1,12 +1,13 @@
 package com.tomaszpolanski.androidsandbox;
 
+import com.tomaszpolanski.androidsandbox.viewmodels.AtomicOption;
+
 import polanski.option.Option;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 import static polanski.option.Option.none;
 import static polanski.option.Option.ofObj;
-
 
 public class ViewBinder {
 
@@ -25,7 +26,7 @@ public class ViewBinder {
 
     public void unbind() {
         mSubscriptions.getAndSet(Option.none())
-                .ifSome(CompositeSubscription::clear);
+                      .ifSome(CompositeSubscription::clear);
     }
 
     protected void onBind(final CompositeSubscription subscription) {

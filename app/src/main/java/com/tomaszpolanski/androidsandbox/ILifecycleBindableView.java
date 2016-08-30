@@ -1,7 +1,8 @@
 package com.tomaszpolanski.androidsandbox;
 
-import rx.subscriptions.CompositeSubscription;
+import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
 
+import rx.subscriptions.CompositeSubscription;
 
 public interface ILifecycleBindableView {
 
