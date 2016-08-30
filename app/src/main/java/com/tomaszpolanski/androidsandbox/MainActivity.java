@@ -1,6 +1,6 @@
 package com.tomaszpolanski.androidsandbox;
 
-import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
+import com.tomaszpolanski.androidsandbox.viewmodels.ViewModel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,23 +8,28 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 
+import io.reactivex.disposables.CompositeDisposable;
 import polanski.option.Option;
-import rx.subscriptions.CompositeSubscription;
 
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onBind(@NonNull CompositeSubscription subscription) {
+    protected void onBind(@NonNull CompositeDisposable subscription) {
 
     }
 
     @NonNull
     @Override
-    protected IViewModel getViewModel() {
-        return new IViewModel() {
+    protected ViewModel getViewModel() {
+        return new ViewModel() {
             @Override
             public void dispose() {
 
+            }
+
+            @Override
+            public boolean isDisposed() {
+                return false;
             }
 
             @Override

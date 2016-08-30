@@ -1,11 +1,12 @@
 package com.tomaszpolanski.androidsandbox.viewmodels;
 
+import io.reactivex.disposables.CompositeDisposable;
+import polanski.option.AtomicOption;
 import polanski.option.Option;
-import rx.subscriptions.CompositeSubscription;
 
-public abstract class AbstractViewModel implements IViewModel {
+public abstract class AbstractViewModel implements ViewModel {
 
-    private AtomicOption<CompositeSubscription> mSubscriptions = new AtomicOption<>();
+    private final AtomicOption<CompositeDisposable> mDisposables = new AtomicOption<>();
 
     @Override
     public void dispose() {
@@ -15,20 +16,20 @@ public abstract class AbstractViewModel implements IViewModel {
     @Override
     public final void subscribeToDataStore() {
         unsubscribeFromDataStore();
-        mSubscriptions.set(Option.ofObj(new CompositeSubscription()));
-        mSubscriptions.get().ifSome(this::subscribeToData);
+        mDisposables.set(Option.ofObj(new CompositeDisposable()));
+        mDisposables.get().ifSome(this::subscribeToData);
     }
 
     @Override
     public void unsubscribeFromDataStore() {
-        mSubscriptions.getAndSet(Option.none())
-                .ifSome(CompositeSubscription::clear);
+        mDisposables.getAndSet(Option.none())
+                    .ifSome(CompositeDisposable::clear);
     }
 
-    protected abstract void subscribeToData(CompositeSubscription subscription);
+    protected abstract void subscribeToData(CompositeDisposable subscription);
 
-    private Option<CompositeSubscription> getSubscriptions() {
-        return mSubscriptions.get();
+    private Option<CompositeDisposable> getDisposables() {
+        return mDisposables.get();
     }
 
 }

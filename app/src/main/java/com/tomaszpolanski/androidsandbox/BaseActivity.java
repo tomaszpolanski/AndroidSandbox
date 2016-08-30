@@ -1,33 +1,33 @@
 package com.tomaszpolanski.androidsandbox;
 
-import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
+import com.tomaszpolanski.androidsandbox.viewmodels.ViewModel;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
     @NonNull
     private final ILifecycleBindableView mBindableView = new LifecycleBindableView() {
         @Override
-        public void onBindBinder(@NonNull final CompositeSubscription s) {
-            onBind(s);
+        public void onBindBinder(@NonNull final CompositeDisposable d) {
+            onBind(d);
         }
 
         @NonNull
         @Override
-        public IViewModel getBinderViewModel() {
+        public ViewModel getBinderViewModel() {
             return getViewModel();
         }
     };
 
-    protected abstract void onBind(@NonNull final CompositeSubscription subscription);
+    protected abstract void onBind(@NonNull final CompositeDisposable subscription);
 
     @NonNull
-    protected abstract IViewModel getViewModel();
+    protected abstract ViewModel getViewModel();
 
     @Override
     protected void onCreate(Bundle bundle) {

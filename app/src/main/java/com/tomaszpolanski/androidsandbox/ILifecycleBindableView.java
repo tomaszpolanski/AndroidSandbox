@@ -1,8 +1,8 @@
 package com.tomaszpolanski.androidsandbox;
 
-import com.tomaszpolanski.androidsandbox.viewmodels.IViewModel;
+import com.tomaszpolanski.androidsandbox.viewmodels.ViewModel;
 
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
 
 public interface ILifecycleBindableView {
 
@@ -16,7 +16,7 @@ public interface ILifecycleBindableView {
 
     void onDestroy();
 
-    void onBindBinder(CompositeSubscription subscription);
+    void onBindBinder(CompositeDisposable disposables);
 
-    IViewModel getBinderViewModel();
+    ViewModel getBinderViewModel();
 }

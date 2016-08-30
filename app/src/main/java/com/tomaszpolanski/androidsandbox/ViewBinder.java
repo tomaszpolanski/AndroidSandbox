@@ -1,35 +1,36 @@
 package com.tomaszpolanski.androidsandbox;
 
-import com.tomaszpolanski.androidsandbox.viewmodels.AtomicOption;
-
-import polanski.option.Option;
-import rx.functions.Action1;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
+import polanski.option.AtomicOption;
 
 import static polanski.option.Option.none;
 import static polanski.option.Option.ofObj;
 
 public class ViewBinder {
 
-    private AtomicOption<CompositeSubscription> mSubscriptions = new AtomicOption<>();
+    private final AtomicOption<CompositeDisposable> mDisposables = new AtomicOption<>();
 
-    private final Action1<CompositeSubscription> mOnBindAction;
+    private final Consumer<CompositeDisposable> mOnBindAction;
 
-    public ViewBinder(Action1<CompositeSubscription> onBindAction) {
+    public ViewBinder(Consumer<CompositeDisposable> onBindAction) {
         mOnBindAction = onBindAction;
     }
 
     public void bind() {
-        mSubscriptions.compareAndSet(none(), ofObj(new CompositeSubscription()));
-        mSubscriptions.get().ifSome(this::onBind);
+        mDisposables.compareAndSet(none(), ofObj(new CompositeDisposable()));
+        mDisposables.get().ifSome(this::onBind);
     }
 
     public void unbind() {
-        mSubscriptions.getAndSet(Option.none())
-                      .ifSome(CompositeSubscription::clear);
+        mDisposables.getAndSet(none())
+                    .ifSome(CompositeDisposable::clear);
     }
 
-    protected void onBind(final CompositeSubscription subscription) {
-        mOnBindAction.call(subscription);
+    protected void onBind(final CompositeDisposable subscription) {
+        try {
+            mOnBindAction.accept(subscription);
+        } catch (Exception e) {
+        }
     }
 }
