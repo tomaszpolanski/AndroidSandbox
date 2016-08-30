@@ -1,5 +1,7 @@
 package com.tomaszpolanski.androidsandbox;
 
+import com.tomaszpolanski.androidsandbox.R.id;
+import com.tomaszpolanski.androidsandbox.R.layout;
 import com.tomaszpolanski.androidsandbox.viewmodels.AbstractViewModel;
 import com.tomaszpolanski.androidsandbox.viewmodels.ViewModel;
 
@@ -10,14 +12,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableEmitter.BackpressureMode;
+import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposables;
 import polanski.option.Unit;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
+import static io.reactivex.disposables.Disposables.from;
 
 public class MainActivity extends BaseActivity {
 
@@ -48,29 +51,29 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
 
     }
 
-    private Observable<Unit> getButtonPressedStream() {
-        return Observable.create(new ObservableOnSubscribe<Unit>() {
+    private Flowable<Unit> getButtonPressedStream() {
+        return Flowable.create(new FlowableOnSubscribe<Unit>() {
             @Override
-            public void subscribe(final ObservableEmitter<Unit> e) {
+            public void subscribe(final FlowableEmitter<Unit> e) {
                 if (!e.isCancelled()) {
-                    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                    FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
                     fab.setOnClickListener(view -> e.onNext(Unit.DEFAULT));
 
-                    e.setDisposable(
-                            Disposables.from((Runnable) () -> fab.setOnClickListener(null)));
+                    e.setDisposable(from((Runnable) () -> fab.setOnClickListener(null)));
                 }
             }
-        }).share();
+        }, BackpressureMode.DROP)
+                       .share();
     }
 
     private void showSnackBar() {
-        Snackbar.make(findViewById(R.id.fab), "Replace with your own action", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(id.fab), "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();
     }
