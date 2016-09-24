@@ -20,7 +20,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import polanski.option.Unit;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
-import static io.reactivex.disposables.Disposables.from;
+import static io.reactivex.disposables.Disposables.fromAction;
 
 public class MainActivity extends BaseActivity {
 
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
                     FloatingActionButton fab = (FloatingActionButton) findViewById(id.fab);
                     fab.setOnClickListener(view -> e.onNext(Unit.DEFAULT));
 
-                    e.setDisposable(from((Runnable) () -> fab.setOnClickListener(null)));
+                    e.setDisposable(fromAction(() -> fab.setOnClickListener(null)));
                 }
             }
         }, BackpressureMode.DROP)
