@@ -28,7 +28,7 @@ import static io.reactivex.schedulers.Schedulers.computation;
 public class MainActivity extends BaseActivity {
 
     @NonNull
-    private final MainViewModel mViewModel = new MainViewModel(new AccelerometerProvider(this));
+    private MainViewModel mViewModel;
 
     @Nullable
     private TextView mTextView;
@@ -46,13 +46,13 @@ public class MainActivity extends BaseActivity {
         d.add(mViewModel.getReadingStream()
                         .subscribeOn(computation())
                         .observeOn(mainThread())
-                        .subscribe(reading -> mTextView.setText(reading),
+                        .subscribe(mTextView::setText,
                                    e -> Log.e("MainActivity", "Cannot read data", e)));
 
         d.add(mViewModel.getEventsPerSecondStream()
                         .subscribeOn(computation())
                         .observeOn(mainThread())
-                        .subscribe(reading -> mTextView2.setText("Events per second: " + reading),
+                        .subscribe(count -> mTextView2.setText("Events per second: " + count),
                                    e -> Log.e("MainActivity", "Cannot read data", e)));
     }
 
@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mViewModel = new MainViewModel(new AccelerometerProvider(this));
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_main);
         mTextView = (TextView) findViewById(id.textView);

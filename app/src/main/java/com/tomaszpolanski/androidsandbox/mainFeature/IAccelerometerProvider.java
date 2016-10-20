@@ -1,8 +1,11 @@
 package com.tomaszpolanski.androidsandbox.mainFeature;
 
+import android.support.annotation.NonNull;
+
 import io.reactivex.Flowable;
 
 interface IAccelerometerProvider {
 
-    Flowable<AccelerometerProvider.AccelerometerReading> getReadingStream();
+    @NonNull
+    Flowable<AccelerometerReading> getReadingStream();
 }
