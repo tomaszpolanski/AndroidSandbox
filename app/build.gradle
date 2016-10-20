@@ -25,6 +25,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -38,7 +41,7 @@ dependencies {
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.0-RC1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC3'
-
+    compile "com.github.akarnokd:rxjava2-interop:0.4.1"
     compile 'com.github.tomaszpolanski:options:1.2.0'
 }
 
@@ -47,3 +50,5 @@ repositories {
     maven { url "https://jitpack.io" }
     maven { url 'https://oss.jfrog.org/libs-snapshot' }
 }
+
+apply plugin: 'com.getkeepsafe.dexcount'
