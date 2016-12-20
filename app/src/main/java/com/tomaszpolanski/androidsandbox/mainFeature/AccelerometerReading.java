@@ -29,7 +29,7 @@ final class AccelerometerReading {
     @Override
     public String toString() {
         return "x: " + mX +
-               ", y: " + mY +
-               ", z: " + mZ;
+               "\r\ny: " + mY +
+               "\r\nz: " + mZ;
     }
 }

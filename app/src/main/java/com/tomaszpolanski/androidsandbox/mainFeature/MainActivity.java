@@ -24,6 +24,7 @@ import polanski.option.Unit;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 import static io.reactivex.disposables.Disposables.fromAction;
 import static io.reactivex.schedulers.Schedulers.computation;
+import static java.util.Objects.requireNonNull;
 
 public class MainActivity extends BaseActivity {
 
@@ -46,13 +47,14 @@ public class MainActivity extends BaseActivity {
         d.add(mViewModel.getReadingStream()
                         .subscribeOn(computation())
                         .observeOn(mainThread())
-                        .subscribe(mTextView::setText,
+                        .subscribe(requireNonNull(mTextView)::setText,
                                    e -> Log.e("MainActivity", "Cannot read data", e)));
 
         d.add(mViewModel.getEventsPerSecondStream()
                         .subscribeOn(computation())
                         .observeOn(mainThread())
-                        .subscribe(count -> mTextView2.setText("Events per second: " + count),
+                        .subscribe(count -> requireNonNull(mTextView2)
+                                           .setText("Events per second: " + count),
                                    e -> Log.e("MainActivity", "Cannot read data", e)));
     }
 
