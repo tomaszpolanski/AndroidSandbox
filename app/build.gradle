@@ -1,20 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion '25.0.0'
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     defaultConfig {
         applicationId "com.tomaszpolanski.androidsandbox"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "0.1"
 
@@ -26,6 +20,7 @@ android {
         }
     }
 }
+kotlin { experimental { coroutines 'enable' } }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -34,16 +29,41 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile "org.assertj:assertj-core:1.7.1"
 
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'io.reactivex:rxjava:1.1.5'
-    compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
+
+    kapt "com.squareup:javapoet:1.7.0"
+    compile 'com.google.dagger:dagger:2.4'
+    kapt 'com.google.dagger:dagger-compiler:2.4'
+    provided "org.glassfish:javax.annotation:10.0-b28"
+
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    compile 'com.jakewharton:butterknife:8.6.0'
+    kapt 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    compile 'com.github.mirrajabi:okhttp-json-mock:1.0'
+
+    compile 'com.google.code.gson:gson:2.8.0'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.tomaszpolanski:options:1.3.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'com.github.akarnokd:ixjava:1.0.0-RC5'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
+}
+
+kapt {
+    generateStubs = true
 }
