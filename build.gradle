@@ -1,17 +1,35 @@
-
 buildscript {
+    ext.kotlin_version = '1.2.20'
+    ext.versions = [
+            kotlin_version      : kotlin_version,
+            google_support      : '26.1.0',
+            rxjava              : '2.1.5',
+            rxandroid           : '2.0.1',
+            kotlin_options      : '0.8',
+            rxlint              : '1.6',
+            constraint_layout   : '1.0.2',
+            arch_lifecycle      : '1.0.0',
+
+            // Test dependencies:
+            truth               : '0.36',
+            junit               : '4.12',
+            mockito_kotlin      : '1.5.0',
+            android_support_test: '1.0.1',
+            espresso            : '3.0.1',
+    ]
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' // needed for AutoValue
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 allprojects {
     repositories {
+        google()
         jcenter()
     }
 }
