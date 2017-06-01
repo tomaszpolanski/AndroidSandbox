@@ -9,7 +9,7 @@ import dagger.Component
 
 @ActivityScope
 @Component(dependencies = arrayOf(ApplicationComponent::class), modules = arrayOf(MainActivityModule::class))
-internal interface MainActivityComponent : BaseActivityComponent {
+interface MainActivityComponent : BaseActivityComponent {
 
     val viewModel: MainViewModel
 
