@@ -44,7 +44,6 @@ class MainActivity : BindingBaseActivity<MainActivityComponent>() {
         }
     }
 
-
     override fun inject() {
         component().inject(this)
     }
@@ -62,11 +61,7 @@ class MainActivity : BindingBaseActivity<MainActivityComponent>() {
         ButterKnife.bind(this)
     }
 
-    override fun viewModel(): ViewModel {
-        return vm
-    }
+    override fun viewModel() = vm
 
-    override fun dataBinder(): DataBinder {
-        return dataBinder
-    }
+    override fun dataBinder() = dataBinder
 }
