@@ -1,12 +1,18 @@
-
 buildscript {
+
+    ext.kotlin_version = '1.1.2-4'
     repositories {
         jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' // needed for AutoValue
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha6'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
@@ -14,4 +20,8 @@ allprojects {
     repositories {
         jcenter()
     }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
