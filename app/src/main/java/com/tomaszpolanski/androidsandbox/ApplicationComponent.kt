@@ -5,6 +5,7 @@ import android.content.Context
 
 import com.tomaszpolanski.androidsandbox.inject.app.BaseApplicationComponent
 import com.tomaszpolanski.androidsandbox.inject.app.ForApplication
+import com.tomaszpolanski.androidsandbox.persistance.AppDatabase
 
 import javax.inject.Singleton
 
@@ -18,6 +19,8 @@ interface ApplicationComponent : BaseApplicationComponent {
 
     @ForApplication
     override fun getApplicationContext(): Context
+
+    fun provideDatabase(): AppDatabase
 
     fun inject(application: App)
 }

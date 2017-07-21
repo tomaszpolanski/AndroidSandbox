@@ -3,6 +3,7 @@ package com.tomaszpolanski.androidsandbox.main
 import com.tomaszpolanski.androidsandbox.ApplicationComponent
 import com.tomaszpolanski.androidsandbox.inject.activity.ActivityScope
 import com.tomaszpolanski.androidsandbox.inject.activity.BaseActivityComponent
+import com.tomaszpolanski.androidsandbox.persistance.AppDatabase
 
 import dagger.Component
 

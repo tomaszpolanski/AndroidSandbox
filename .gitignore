@@ -27,3 +27,4 @@ proguard/
 *.iml
 *.iml
 *.iml
+app/schemas/com.tomaszpolanski.androidsandbox.persistance.AppDatabase/1.json
