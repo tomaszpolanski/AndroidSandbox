@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -39,7 +39,7 @@ kotlin { experimental { coroutines 'enable' } }
 ext {
     dependencyVersions = [
             kotlin                         : kotlin_version,
-            androidSupportLibrary          : '25.4.0',
+            androidSupportLibrary          : '26.0.0-beta2',
             androidSupportConstraintLibrary: '1.0.2',
             javaPoet                       : '1.9.0',
             dagger2                        : '2.4',
@@ -60,7 +60,7 @@ ext {
             assertJ                        : '1.7.1',
             moshi                          : '1.5.0',
             moshiConverter                 : '2.3.0',
-            roomVersion                    : '1.0.0-alpha4',
+            roomVersion                    : '1.0.0-alpha5',
     ]
 }
 
@@ -134,8 +134,4 @@ repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
     google()
-}
-
-kapt {
-    generateStubs = true
 }

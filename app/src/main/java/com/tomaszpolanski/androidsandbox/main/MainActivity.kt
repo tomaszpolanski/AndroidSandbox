@@ -23,15 +23,6 @@ class MainActivity : BindingBaseActivity<MainActivityComponent>() {
   @Inject
   internal lateinit var vm: MainViewModel
 
-  @BindView(R.id.progressBar)
-  internal lateinit var progressBar: View
-
-  @BindView(R.id.textView)
-  internal lateinit var errorView: TextView
-
-  @BindView(R.id.recycler_view)
-  internal lateinit var recyclerView: RecyclerView
-
   private val dataBinder = object : DataBinder {
     override fun bind(disposables: CompositeDisposable) {
 
@@ -56,7 +47,6 @@ class MainActivity : BindingBaseActivity<MainActivityComponent>() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    ButterKnife.bind(this)
   }
 
   override fun viewModel() = vm
