@@ -10,16 +10,16 @@ abstract class ViewModelBase<S : Parcelable, in E>(
     private val schedulerProvider: SchedulerProvider
                                                   ) : ViewModel() {
 
-    private val intentPublishSubject = PublishProcessor.create<Pair<E, S?>>()
+    private val intentStream = PublishProcessor.create<Pair<E, S?>>()
 
-    fun getState(restored: S?, initial: S): Flowable<S> = intentPublishSubject
+    fun getState(restored: S?, initial: S): Flowable<S> = intentStream
         .flatMapSingle { (event, previous) ->
             reduce(previous ?: restored ?: initial, event)
         }
         .observeOn(schedulerProvider.ui())
 
     fun intent(event: E, previousState: S?) =
-        intentPublishSubject.onNext(event to previousState)
+        intentStream.onNext(event to previousState)
 
-    abstract fun reduce(previous: S, intent: E): Single<S>
+    abstract fun reduce(previous: S, event: E): Single<S>
 }

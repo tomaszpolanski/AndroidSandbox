@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : ActivityIntent<State, Event>() {
 
-
     private lateinit var hiddenTip: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +40,8 @@ class MainActivity : ActivityIntent<State, Event>() {
             .provide<MainViewModel>(this)
 
 
-    override fun render(state: State) {
-        super.render(state)
+    override fun updateState(state: State) {
+        super.updateState(state)
         return when (state) {
             is State.HiddenToast -> hiddenTip.cancel()
             is State.ShownToast  -> with(hiddenTip) {

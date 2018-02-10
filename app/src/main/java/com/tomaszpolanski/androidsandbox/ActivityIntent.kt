@@ -10,13 +10,13 @@ abstract class ActivityIntent<S : Parcelable, E> : AppCompatActivity() {
     private var lastState: S? = null
     protected lateinit var viewModel: ViewModelBase<S, E>
 
-    protected open fun render(state: S) {
+    protected open fun updateState(state: S) {
         lastState = state
     }
 
     protected fun bind(savedInstanceState: Bundle?, initial: S) {
         viewModel.getState(readLastState(savedInstanceState), initial)
-            .observe(this, this::render)
+            .observe(this, this::updateState)
         onBind()
     }
 

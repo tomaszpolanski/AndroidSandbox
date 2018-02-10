@@ -6,9 +6,7 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Parcelable
 import android.support.v4.app.FragmentActivity
-import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.processors.PublishProcessor
 import kotlinx.android.parcel.Parcelize
 
 
@@ -48,7 +46,7 @@ class MainViewModel(
         State.HiddenToast(0)
     }
 
-    override fun reduce(previous: State, intent: Event): Single<State> = when (intent) {
+    override fun reduce(previous: State, event: Event): Single<State> = when (event) {
         Event.LongClick  -> showDebugSettings()
         Event.ShortClick -> createState(previous)
     }
